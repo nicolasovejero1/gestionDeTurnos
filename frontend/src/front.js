@@ -41,6 +41,30 @@ const generarTurno = (id) => {
         console.log("Raw Response:", text); // Verifica qué está devolviendo el servidor
         return JSON.parse(text); // Convierte a JSON
     })
-    .then(data => console.log("Turno generado:", data.turno))
+    .then(data => {
+        console.log("Turno generado:", data.turno);
+        mostrarTurno(data.turno);
+    })
     .catch(error => console.error('Error:', error));
+};
+
+
+function mostrarTurno(turno) {
+    let turnoDiv = document.createElement("div");
+    let texto = document.createElement("p");
+    let textTurno = document.createElement("p");
+    turnoDiv.id = "turno-popup";
+    texto.id = "texto";
+    textTurno.id ="textTurno";
+    texto.innerText = `Turno`;
+    textTurno.innerText = `${turno}`;
+    turnoDiv.appendChild(texto);
+    turnoDiv.appendChild(textTurno);
+    document.body.appendChild(turnoDiv);
+
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        turnoDiv.style.opacity = "0"; // Desvanecimiento
+        setTimeout(() => turnoDiv.remove(), 500); // Remover el elemento
+    }, 3000);
 };
